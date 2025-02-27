@@ -4,8 +4,8 @@ from biblioteca import Libro, Biblioteca
 @pytest.fixture
 def biblioteca():
     biblioteca = Biblioteca()
-    libro1 = Libro("El Señor de los Anillos", "J.R.R. Tolkien", 1954)
-    libro2 = Libro("1984", "George Orwell", 1949)
+    libro1 = Libro("Harry Potter y la Piedra Filosofal", "J.K. Rowling", 1997)
+    libro2 = Libro("Memorias de Idhún", "Laura Gallego García", 2004)
     biblioteca.agregar_libro(libro1)
     biblioteca.agregar_libro(libro2)
     return biblioteca
@@ -19,9 +19,9 @@ def test_agregar_libro(biblioteca):
 
 # Prueba para eliminar libros
 def test_eliminar_libro(biblioteca):
-    biblioteca.eliminar_libro("1984")
+    biblioteca.eliminar_libro("Memorias de Idhún")
     assert len(biblioteca.libros) == 1  
-    assert biblioteca.buscar_libro("1984") is None  
+    assert biblioteca.buscar_libro("Memorias de Idhún") is None  
 
 def test_eliminar_libro_inexistente(biblioteca):
     biblioteca.eliminar_libro("El Gran Gatsby")
@@ -29,31 +29,31 @@ def test_eliminar_libro_inexistente(biblioteca):
 
 # Prueba para buscar libros
 def test_buscar_libro(biblioteca):
-    libro = biblioteca.buscar_libro("El Señor de los Anillos")
+    libro = biblioteca.buscar_libro("Harry Potter y la Piedra Filosofal")
     assert libro is not None  
-    assert libro.titulo == "El Señor de los Anillos"  
+    assert libro.titulo == "Harry Potter y la Piedra Filosofal"  
 
 def test_buscar_libro_inexistente(biblioteca):
     libro = biblioteca.buscar_libro("El Gran Gatsby")
     assert libro is None  
 
-
 # Prueba para listar libros
 def test_listar_libros(biblioteca):
     lista_libros = biblioteca.listar_libros()
     assert len(lista_libros) == 2 
-    assert "El Señor de los Anillos de J.R.R. Tolkien (1954) - disponible" in lista_libros  
-
+    assert "Harry Potter y la Piedra Filosofal de J.K. Rowling (1997) - disponible" in lista_libros  
+    assert "Memorias de Idhún de Laura Gallego García (2004) - disponible" in lista_libros  
 
 # Pruebas para prestar libros
 def test_prestar_libro(biblioteca):
-    resultado = biblioteca.prestar_libro("El Señor de los Anillos")
-    assert "Has pedido prestado el libro 'El Señor de los Anillos'" in resultado  
-    assert biblioteca.buscar_libro("El Señor de los Anillos").prestado is True  
+    resultado = biblioteca.prestar_libro("Harry Potter y la Piedra Filosofal")
+    assert "Has pedido prestado el libro 'Harry Potter y la Piedra Filosofal'" in resultado  
+    assert biblioteca.buscar_libro("Harry Potter y la Piedra Filosofal").prestado is True  
+
 def test_prestar_libro_ya_prestado(biblioteca):
     # Prestarlo por segunda vez
-    biblioteca.prestar_libro("El Señor de los Anillos")
-    resultado = biblioteca.prestar_libro("El Señor de los Anillos")
+    biblioteca.prestar_libro("Harry Potter y la Piedra Filosofal")
+    resultado = biblioteca.prestar_libro("Harry Potter y la Piedra Filosofal")
     assert "ya está prestado" in resultado  
 
 def test_prestar_libro_inexistente(biblioteca):
@@ -62,16 +62,17 @@ def test_prestar_libro_inexistente(biblioteca):
 
 # Pruebas para devolver libros
 def test_devolver_libro(biblioteca):
-    biblioteca.prestar_libro("El Señor de los Anillos")
-    resultado = biblioteca.devolver_libro("El Señor de los Anillos")
-    assert "Has devuelto el libro 'El Señor de los Anillos'" in resultado  
-    assert biblioteca.buscar_libro("El Señor de los Anillos").prestado is False  
+    biblioteca.prestar_libro("Harry Potter y la Piedra Filosofal")
+    resultado = biblioteca.devolver_libro("Harry Potter y la Piedra Filosofal")
+    assert "Has devuelto el libro 'Harry Potter y la Piedra Filosofal'" in resultado  
+    assert biblioteca.buscar_libro("Harry Potter y la Piedra Filosofal").prestado is False  
 
 def test_devolver_libro_no_prestado(biblioteca):
-    resultado = biblioteca.devolver_libro("El Señor de los Anillos")
+    resultado = biblioteca.devolver_libro("Harry Potter y la Piedra Filosofal")
     assert "no estaba prestado" in resultado  
 
 def test_devolver_libro_inexistente(biblioteca):
     resultado = biblioteca.devolver_libro("El Gran Gatsby")
-    assert "no se encuentra en la biblioteca" in resultado  
+    assert "no se encuentra en la biblioteca" in resultado
+
 
