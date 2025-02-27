@@ -37,11 +37,13 @@ def test_buscar_libro_inexistente(biblioteca):
     libro = biblioteca.buscar_libro("El Gran Gatsby")
     assert libro is None  
 
+
 # Prueba para listar libros
 def test_listar_libros(biblioteca):
     lista_libros = biblioteca.listar_libros()
     assert len(lista_libros) == 2 
-    assert "El Señor de los Anillos" in lista_libros  
+    assert "El Señor de los Anillos de J.R.R. Tolkien (1954) - disponible" in lista_libros  
+
 
 # Pruebas para prestar libros
 def test_prestar_libro(biblioteca):
