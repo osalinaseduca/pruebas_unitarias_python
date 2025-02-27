@@ -1,7 +1,7 @@
 import pytest
 from biblioteca import Libro, Biblioteca
 
-
+@pytest.fixture
 def biblioteca():
     biblioteca = Biblioteca()
     libro1 = Libro("El Señor de los Anillos", "J.R.R. Tolkien", 1954)
